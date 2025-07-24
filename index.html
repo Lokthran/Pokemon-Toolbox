@@ -11,12 +11,18 @@
             color: #333;
             margin: 0;
             padding: 0;
+            min-height: 100vh; /* Mindesthöhe des Bodys, um Footer nach unten zu drücken */
+            display: flex;
+            flex-direction: column;
         }
 
         .container {
             max-width: 1400px;
             margin: auto;
             padding: 20px;
+            flex-grow: 1; /* Lässt den Container den verfügbaren Platz einnehmen */
+            display: flex;
+            flex-direction: column;
         }
 
         .header {
@@ -25,7 +31,31 @@
             background: white;
             border-radius: 15px;
             margin-bottom: 20px;
+            position: relative; /* Für die Positionierung des Spendenaufrufs */
         }
+
+        .header-donation-call {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 0.9em;
+        }
+
+        .header-donation-call a {
+            background-color: #FF5E5E; /* Auffällige Farbe */
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            white-space: nowrap; /* Verhindert Umbruch des Buttons */
+        }
+
+        .header-donation-call a:hover {
+            background-color: #E04B4B;
+        }
+
 
         nav {
             display: flex;
@@ -54,6 +84,7 @@
 
         .view {
             display: none;
+            flex-grow: 1; /* Views nehmen den verfügbaren Platz ein */
         }
 
             .view.active {
@@ -69,7 +100,7 @@
             box-sizing: border-box; /* Polsterung in die Höhe einbeziehen */
             font-size: 1em;
             vertical-align: middle;
-            margin: 0; /* Standard-Margins zurücksetzen */
+            margin: 0;
         }
 
         .progress-section {
@@ -151,7 +182,6 @@
             justify-content: flex-end; 
         }
 
-        /* Basis-Styling für select und input innerhalb der filter-group */
         .filter-group select,
         .filter-group input[type="text"] {
             flex-grow: 1; 
@@ -163,7 +193,6 @@
             max-width: 300px; 
         }
 
-        /* Buttons sollen nicht wachsen */
         .button-group button {
             flex-shrink: 0; 
             white-space: nowrap; 
@@ -467,40 +496,61 @@
 
         /* Responsive Styles */
         @media (max-width: 768px) {
+            .header-donation-call {
+                position: static; /* Positionierung auf Mobilgeräten zurücksetzen */
+                text-align: center;
+                margin-top: 15px; /* Abstand zum Titel */
+            }
+
+            .header-donation-call a {
+                display: block; /* Button füllt die Breite aus */
+                width: calc(100% - 40px); /* Berücksichtigt Padding des Headers */
+                margin: 0 auto; /* Zentriert den Button */
+            }
+
             /* Grundlegende Steuerelemente im Living-Dex (Filter + Buttons) */
             .controls {
                 flex-direction: column;
-                align-items: stretch; /* Elemente füllen die Breite aus */
+                align-items: stretch; 
                 justify-content: flex-start;
             }
 
             .controls select,
-            .controls input[type="text"],
-            .controls button {
-                width: 100%; /* Volle Breite */
-                margin-bottom: 10px; /* Abstand zwischen den Elementen */
-                margin-top: 0; /* Setzt alle oberen Margins zurück */
-                max-width: unset; /* Überschreibt Desktop-Max-Breite */
+            .controls input {
+                width: 100%;
+                margin-bottom: 10px;
+                max-width: unset; 
                 flex-grow: 1;
             }
             
-            /* Filtergruppe und Buttongruppe stapeln sich vertikal */
+            .controls button {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
             .filter-group, .button-group {
                 flex-direction: column;
                 align-items: stretch;
                 width: 100%;
                 margin-left: 0;
-                gap: 10px; /* Abstand zwischen Elementen innerhalb der Gruppe */
+                gap: 10px; 
+            }
+            
+            .filter-group select,
+            .filter-group input {
+                width: 100%;
+                margin-bottom: 10px;
             }
 
             .button-group button {
-                margin-top: 0; /* Keinen zusätzlichen Margin-Top zwischen den Buttons in der Gruppe */
+                width: 100%;
+                margin-top: 10px;
             }
 
-            /* Spezielle Anpassung für Pokedex-Filter im Typen-Rechner */
             .pokedex-filters {
-                flex-direction: column; /* Stapelt Filter vertikal */
-                align-items: stretch; /* Füllt die Breite aus */
+                flex-direction: column; 
+                align-items: stretch; 
             }
 
             .pokedex-filters input,
@@ -508,7 +558,7 @@
                 width: 100%; 
                 margin-bottom: 10px;
                 flex-shrink: 0; 
-                max-width: unset; /* Wichtig: setzt max-width zurück */
+                max-width: unset; 
             }
 
             .type-selection-grid {
@@ -534,11 +584,65 @@
         #codeModal {
             display: flex; 
         }
+
+        /* Styles für Content-Sektionen (Impressum, Datenschutz) */
+        .content-section {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .content-section h2, .content-section h3, .content-section h4 {
+            color: #447D9B;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .content-section p, .content-section ul {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .content-section ul {
+            padding-left: 25px;
+        }
+        .content-section a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .content-section a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer für Impressum/Datenschutz-Links */
+        .footer-links {
+            text-align: center;
+            padding: 15px;
+            background: #fff;
+            border-top: 1px solid #eee;
+            margin-top: 20px; /* Abstand zum Inhalt */
+            border-radius: 12px;
+        }
+        .footer-links a {
+            color: #667eea;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 0.9em;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header"><h1>Pokémon Toolbox</h1></div>
+        <div class="header">
+            <h1>Pokémon Toolbox</h1>
+            <div class="header-donation-call">
+                <a href="https://ko-fi.com/lokthran" target="_blank" rel="noopener noreferrer">Webseite unterstützen (Spende)</a>
+            </div>
+        </div>
         <nav>
             <button id="nav-living-dex" class="active">Living-Dex</button>
             <button id="nav-type-calculator">Typen-Rechner</button>
@@ -593,6 +697,110 @@
                 <div id="pokedex-clickable-container" class="pokedex-clickable pokemon-grid"></div>
             </div>
         </div>
+
+        <div class="view" id="impressum-view">
+            <div class="content-section">
+                <h2>IMPRESSUM (WORK IN PROGRESS)</h2>
+                <h3>Angaben gemäß § 5 TMG:</h3>
+                <p>Lokthran<br>
+                [Deine Straße und Hausnummer]<br>
+                [Deine Postleitzahl] [Dein Ort]<br>
+                Deutschland</p>
+
+                <h3>Kontakt:</h3>
+                <p>E-Mail: Lokthran@gmail.com</p>
+
+                <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</h3>
+                <p>Lokthran<br>
+                [Deine Straße und Hausnummer]<br>
+                [Deine Postleitzahl] [Dein Ort]<br>
+                Deutschland</p>
+                
+                <h3>Haftung für Inhalte</h3>
+                <p>Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
+
+                <h3>Haftung für Links</h3>
+                <p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
+
+                <h3>Urheberrecht</h3>
+                <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.</p>
+                <p>Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.</p>
+            </div>
+        </div>
+
+        <div class="view" id="datenschutz-view">
+            <div class="content-section">
+                <h2>Datenschutzerklärung</h2>
+                <h3>1. Datenschutz auf einen Blick</h3>
+                <h4>Allgemeine Hinweise</h4>
+                <p>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können. Ausführliche Informationen zum Thema Datenschutz entnehmen Sie unserer unter diesem Text aufgeführten Datenschutzerklärung.</p>
+
+                <h3>2. Allgemeine Hinweise und Pflichtinformationen</h3>
+                <h4>Datenschutz</h4>
+                <p>Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.</p>
+                <p>Wenn Sie diese Website benutzen, werden verschiedene personenbezogene Daten erhoben. Personenbezogene Daten sind Daten, mit denen Sie persönlich identifiziert werden können. Die vorliegende Datenschutzerklärung erläutert, welche Daten wir erheben und wofür wir sie nutzen. Sie erläutert auch, wie und zu welchem Zweck das geschieht.</p>
+                <p>Wir weisen darauf hin, dass die Datenübertragung im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich.</p>
+
+                <h4>Hinweis zur verantwortlichen Stelle</h4>
+                <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
+                <p>Lokthran<br>
+                [Deine Straße und Hausnummer]<br>
+                [Deine Postleitzahl] [Dein Ort]<br>
+                Deutschland</p>
+                <p>E-Mail: Lokthran@gmail.com</p>
+                <p>Verantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten (Namen, E-Mail-Adressen o. Ä.) entscheidet.</p>
+
+                <h3>3. Datenerfassung auf dieser Website</h3>
+                <h4>Cookies</h4>
+                <p>Unsere Website verwendet keine Cookies. Es werden keine Informationen auf Ihrem Gerät gespeichert, die Ihr Browser beim Besuch unserer Website als "Cookie" verwalten würde.</p>
+
+                <h4>Server-Log-Dateien</h4>
+                <p>Der Provider der Seiten erhebt und speichert automatisch Informationen in so genannten Server-Log-Dateien, die Ihr Browser automatisch an uns übermittelt. Dies sind:</p>
+                <ul>
+                    <li>Browsertyp und Browserversion</li>
+                    <li>verwendetes Betriebssystem</li>
+                    <li>Referrer URL</li>
+                    <li>Hostname des zugreifenden Rechners</li>
+                    <li>Uhrzeit der Serveranfrage</li>
+                    <li>IP-Adresse</li>
+                </ul>
+                <p>Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen. Die Erfassung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Der Websitebetreiber hat ein berechtigtes Interesse an der technisch fehlerfreien Darstellung und der Optimierung seiner Website – hierzu müssen die Server-Log-Files erfasst werden.</p>
+
+                <h4>Datenspeicherung im Local Storage</h4>
+                <p>Diese Website verwendet "Local Storage" Ihres Browsers, um Ihren Fortschritt im Living-Dex (welche Pokémon Sie gefangen haben) direkt in Ihrem Browser zu speichern. Diese Daten werden ausschließlich lokal auf Ihrem Gerät gespeichert und nicht an unsere Server oder Dritte übertragen. Die Daten verbleiben auf Ihrem Gerät, bis Sie sie über die Browser-Einstellungen löschen oder die Website-Daten manuell entfernen.</p>
+
+                <h3>4. Plugins und Tools</h3>
+                <p>Diese Website verwendet derzeit keine externen Plugins oder Tools, die eine Verbindung zu externen Servern herstellen und dabei personenbezogene Daten verarbeiten könnten (z.B. Google Fonts, Google Maps, Social Media Plugins, Tracking-Tools wie Google Analytics). Alle Funktionen basieren auf lokal geladenem Code und den bereitgestellten Daten.</p>
+
+                <h3>5. Ihre Rechte</h3>
+                <h4>Recht auf Auskunft, Sperrung, Löschung</h4>
+                <p>Sie haben jederzeit im Rahmen der geltenden gesetzlichen Bestimmungen das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung und ggf. ein Recht auf Berichtigung, Sperrung oder Löschung dieser Daten. Hierzu sowie zu weiteren Fragen zum Thema personenbezogene Daten können Sie sich jederzeit unter der im Impressum angegebenen Adresse an uns wenden.</p>
+
+                <h4>Widerrufsrecht bei Einwilligung zur Datenverarbeitung</h4>
+                <p>Viele Datenverarbeitungsvorgänge sind nur mit Ihrer ausdrücklichen Einwilligung möglich. Sie können eine bereits erteilte Einwilligung jederzeit widerrufen. Dazu reicht eine formlose Mitteilung per E-Mail an uns. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unberührt.</p>
+
+                <h4>Recht auf Beschwerde bei der zuständigen Aufsichtsbehörde</h4>
+                <p>Im Falle datenschutzrechtlicher Verstöße steht dem Betroffenen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu. Zuständige Aufsichtsbehörde in datenschutzrechtlichen Fragen ist der Landesdatenschutzbeauftragte des Bundeslandes, in dem unser Unternehmen seinen Sitz hat. Eine Liste der Datenschutzbeauftragten sowie deren Kontaktdaten können folgendem Link entnommen werden: <a href="https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html" target="_blank">https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html</a>.</p>
+
+                <h3>6. Host (GitHub Pages)</h3>
+                <p>Diese Website wird über GitHub Pages gehostet. Wenn Sie unsere Website besuchen, verarbeitet GitHub Daten, um den Dienst bereitzustellen und die Sicherheit zu gewährleisten. Dies kann auch die Speicherung von Server-Log-Dateien umfassen (siehe oben). Weitere Informationen zur Datenverarbeitung durch GitHub finden Sie in der Datenschutzerklärung von GitHub: <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank">https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement</a>.</p>
+
+                <h3>7. Hinweise zu Inhalten und externen Links</h3>
+                <p>Die auf dieser Website dargestellten Medien-Dateien (z.B. Bilder, Grafiken) stammen aus verschiedenen Quellen wie z.B. Nintendo-Pressestellen, Privataufnahmen, offiziellen Websites oder ähnlichen Quellen. Sie dienen ausschließlich zu Referenzzwecken im Kontext dieser Anwendung. Die Rechte der einzelnen Werke liegen bei den entsprechenden Urhebern; wir machen uns diese Werke ausdrücklich nicht zu eigen.</p>
+                <p>Wir bemühen uns, alle Inhalte auf dieser Website nach bestem Wissen und Gewissen zu erstellen und zu kontrollieren. Inhalte, die im Verdacht stehen, Urheber-, Verwertungs-, Persönlichkeits- oder sonstige Rechte zu verletzen, können unverzüglich ohne Rücksprache korrigiert bzw. gelöscht werden. Ein Ausschluss einzelner Benutzer behalten wir uns ausdrücklich vor, insbesondere bei missbräuchlicher Nutzung.</p>
+                <p>Dieses Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Haftung übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
+                <p>Wir weisen darauf hin, dass wir auf allen Eingabeseiten darauf achten, dass kein Material verwendet wird, das Urheberrechten Dritter unterliegt. Es kann aber nicht ausgeschlossen werden, dass von Benutzern dennoch unbefugt Material eingebracht wird, das bestehende Schutzrechte verletzt, und das nicht sofort als solches erkannt wird. Wenn uns eine entsprechende Urheberrechtsverletzung angezeigt wird, wird das betreffende Material umgehend entfernt. Am schnellsten erreichen Sie uns hierfür per E-Mail unter Lokthran@gmail.com oder über die im Impressum angegebene Postadresse. Die Nachricht sollte den betroffenen Inhalt genau bezeichnen (bitte immer URL und ggf. konkreten Abschnitt angeben) sowie die Publikation oder Website nennen, aus der das Material unberechtigt übernommen wurde.</p>
+                <p>Sollten Inhalte aus dieser Anwendung auf andere Websites kopiert werden, müssen die entsprechenden Lizenzbestimmungen (z.B. Creative Commons Lizenz des Quellmaterials) beachtet werden, einschließlich einer korrekten Namensnennung des Urhebers.</p>
+                <p>Hinweis: Diese Pokémon Toolbox ist keine offizielle Pokémon-Website und wird weder von Nintendo noch The Pokémon Company betrieben.</p>
+                <p>Pokémon and Pokémon character names are trademarks of Nintendo.</p>
+                <p>© 2025 Pokémon. © 1995–2025 Nintendo, Creatures Inc., GAME FREAK inc.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-links">
+        <a href="#" id="footer-impressum-link">Impressum</a>
+        <a href="#" id="footer-datenschutz-link">Datenschutz</a>
     </div>
 
     <script src="pokedex.js"></script>
@@ -614,17 +822,38 @@
         document.addEventListener("DOMContentLoaded", () => {
             const navLivingDex = document.getElementById('nav-living-dex');
             const navTypeCalc = document.getElementById('nav-type-calculator');
+            
             function showView(viewId) {
-                document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+                // Alle Views ausblenden
+                document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
+                // Alle Nav-Buttons deaktivieren
                 document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-                document.getElementById(viewId).classList.add('active');
-                (viewId === 'living-dex-view' ? navLivingDex : navTypeCalc).classList.add('active');
+                
+                const targetView = document.getElementById(viewId);
+                if (targetView) {
+                    targetView.style.display = 'block'; // Ziel-View anzeigen
+                    // Den passenden Nav-Button aktivieren, wenn er in der Hauptnavigation ist
+                    if (viewId === 'living-dex-view') navLivingDex.classList.add('active');
+                    else if (viewId === 'type-calculator-view') navTypeCalc.classList.add('active');
+                }
             }
+            
             navLivingDex.addEventListener('click', () => showView('living-dex-view'));
             navTypeCalc.addEventListener('click', () => showView('type-calculator-view'));
+
+            // Event Listener für Footer-Links
+            document.getElementById('footer-impressum-link').addEventListener('click', (event) => {
+                event.preventDefault(); // Standardlink-Verhalten verhindern
+                showView('impressum-view');
+            });
+            document.getElementById('footer-datenschutz-link').addEventListener('click', (event) => {
+                event.preventDefault(); // Standardlink-Verhalten verhindern
+                showView('datenschutz-view');
+            });
+
             initLivingDex();
             initTypeCalculator();
-            showView('living-dex-view');
+            showView('living-dex-view'); // Start mit Living-Dex
         });
 
         // --- LIVING DEX FUNCTIONS ---
@@ -856,7 +1085,7 @@
             document.getElementById('pokedex-search').addEventListener('input', applyClickablePokedexFilters);
             type1Select.addEventListener('change', applyClickablePokedexFilters);
             type2Select.addEventListener('change', applyClickablePokedexFilters);
-            applyClickablePokedexFilters();
+            applyClickablePokedexFilters(); // Start mit allen Pokemons
             updateCalculatorResults();
         }
         function toggleTypeSelection(type) {

@@ -32,7 +32,7 @@ Meistere die Typen-Effektivitäten und plane deine Kämpfe strategisch!
 ## 🌐 Online verfügbar
 Du kannst die Pokémon Toolbox direkt in deinem Browser nutzen!
 
-[Pokemon Toolbox, `https://lokthran.github.io/Pokemon-Toolbox/`](https://lokthran.github.io/Pokemon-Toolbox/)
+[Pokemon Toolbox - https://lokthran.github.io/Pokemon-Toolbox/](https://lokthran.github.io/Pokemon-Toolbox/)
 
 ## 🛠️ Entwicklung
 

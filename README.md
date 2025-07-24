@@ -42,7 +42,7 @@ Um an der Toolbox zu arbeiten oder sie offline zu nutzen:
 2.  Öffne die `index.html` Datei in deinem Webbrowser.
 
 ### Lizenz
-Dieses Projekt ist unter der MIT-Lizenz lizenziert. Weitere Details findest du in der `LICENSE`-Datei (falls vorhanden).
+Dieses Projekt ist unter der [Creative Commons Namensnennung-Nicht kommerziell 4.0 International (CC BY-NC 4.0) Lizenz](https://creativecommons.org/licenses/by-nc/4.0/deed.de) lizenziert. Das bedeutet, du darfst das Projekt nutzen und teilen, solange es nicht für kommerzielle Zwecke verwendet wird und du den ursprünglichen Urheber (Lokthran) nennst.
 
 ---
 

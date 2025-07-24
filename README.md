@@ -12,7 +12,6 @@ Behalte den Überblick über deine gesammelten Pokémon!
     * Form (Normal, Alola, Galar, Hisui)
     * Fangstatus (Gefangen, Shiny, Fehlend)
     * Name (Suchfunktion)
-* **Keine Mega-Pokémon:** Mega-Entwicklungen sind vom Living-Dex ausgeschlossen, da sie nicht dauerhaft gefangen werden können.
 * **Fortschritt sichern & teilen:**
     * **Export:** Generiere einen Code deines aktuellen Living-Dex-Fortschritts.
     * **Import:** Füge einen Code ein, um deinen Fortschritt auf einem anderen Gerät wiederherzustellen oder zu teilen.

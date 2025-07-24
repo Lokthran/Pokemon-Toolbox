@@ -93,18 +93,35 @@
 
         .view {
             display: none;
+            flex-grow: 1;
+            min-height: 0; /* Wichtig für Flexbox in einigen Browsern */
         }
 
         .view.active {
-            display: block;
+            display: flex; /* Ansicht soll Flex-Container sein */
+            flex-direction: column;
         }
         
-        /* Container für scrollbare Inhalte, falls nötig */
+        .tool-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            min-height: 0;
+        }
+
         .scroll-wrapper {
             overflow-y: auto; /* Fügt Scrollbalken nur bei Bedarf hinzu */
         }
 
 
+        .tool-container h2 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #447D9B;
+        }
+        
         select, input[type="text"], .controls button, .quiz-controls button {
             padding: 8px 15px;
             border-radius: 8px;
@@ -114,17 +131,6 @@
             font-size: 1em;
             vertical-align: middle;
             margin: 0;
-        }
-        
-        .tool-container {
-            width: 100%;
-        }
-
-        .tool-container h2 {
-            text-align: center;
-            margin-top: 0;
-            margin-bottom: 20px;
-            color: #447D9B;
         }
 
         .progress-section {
@@ -401,10 +407,40 @@
         .footer-links {
             text-align: center;
             padding: 15px;
-            margin-bottom: 0; /* Wichtig für Footer am Ende */
+            margin-bottom: 0;
         }
         .footer-links a { color: #667eea; text-decoration: none; margin: 0 10px; font-size: 0.9em; }
         .footer-links a:hover { text-decoration: underline; }
+
+        /* --- RESPONSIVE STYLES --- */
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px;
+            }
+            .header h1 {
+                margin-bottom: 15px;
+            }
+            .header-donation-call {
+                position: static;
+                transform: none;
+                margin-top: 10px;
+            }
+            
+            .controls { flex-direction: column; align-items: stretch; }
+            .filter-group, .button-group { flex-direction: column; width: 100%; }
+            .filter-group select, .filter-group input { max-width: none; }
+            
+            .pokemon-grid { grid-template-columns: 1fr; }
+
+            .quiz-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .quiz-controls select,
+            .quiz-controls button {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -423,8 +459,8 @@
 
         <div id="living-dex-view" class="view active">
              <div class="tool-container">
-                <h2>Living-Dex Tracker</h2>
                 <div class="scroll-wrapper">
+                    <h2>Living-Dex Tracker</h2>
                     <div class="progress-section">
                         <div class="progress-card"><h3>Normal gefangen</h3><div class="progress-bar"><div class="progress-fill normal-progress" id="normalProgress">0%</div></div><div id="normalStats">0 / 0</div></div>
                         <div class="progress-card"><h3>Shiny gefangen</h3><div class="progress-bar"><div class="progress-fill shiny-progress" id="shinyProgress">0%</div></div><div id="shinyStats">0 / 0</div></div>
@@ -448,8 +484,8 @@
         
         <div id="type-calculator-view" class="view">
             <div class="tool-container">
-                <h2>Typen-Rechner</h2>
                 <div class="scroll-wrapper">
+                    <h2>Typen-Rechner</h2>
                     <div class="controls">
                         <h3>Wähle bis zu zwei Typen zur Verteidigungs-Analyse:</h3>
                         <div id="type-selection-grid-container"></div>
@@ -511,7 +547,7 @@
 
         <div id="datenschutz-view" class="view">
              <div class="tool-container">
-                <h2>Datenschutzerklärung</h2>
+                <h2>DATENSCHUTZ (WORK IN PROGRESS)</h2>
                 ...
              </div>
         </div>
@@ -557,17 +593,31 @@
                 document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
                 document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
                 const view = document.getElementById(viewId);
-                const button = document.getElementById(`nav-${viewId.replace('-view', '')}`);
-                if (view) view.style.display = 'block';
-                if (button) button.classList.add('active');
+                let buttonId = `nav-${viewId.replace('-view', '')}`;
+                let button = document.getElementById(buttonId);
+                
+                if (!button) {
+                    buttonId = `footer-${viewId.replace('-view', '')}-link`;
+                    button = document.getElementById(buttonId);
+                }
+
+                if (view) view.style.display = 'flex'; 
+
+                const navButton = document.getElementById(`nav-${viewId.replace('-view', '')}`);
+                if (navButton) navButton.classList.add('active');
             }
 
-            ['living-dex', 'type-calculator', 'type-quiz', 'impressum', 'datenschutz'].forEach(id => {
-                 const button = document.getElementById(`nav-${id}`) || document.getElementById(`footer-${id}-link`);
-                 if(button) button.addEventListener('click', (e) => {
-                     e.preventDefault();
-                     switchView(`${id}-view`);
-                 });
+            ['living-dex', 'type-calculator', 'type-quiz'].forEach(id => {
+                document.getElementById(`nav-${id}`).addEventListener('click', (e) => {
+                    e.preventDefault();
+                    switchView(`${id}-view`);
+                });
+            });
+            ['impressum', 'datenschutz'].forEach(id => {
+                document.getElementById(`footer-${id}-link`).addEventListener('click', (e) => {
+                    e.preventDefault();
+                    switchView(`${id}-view`);
+                });
             });
 
             initLivingDex();
@@ -576,8 +626,6 @@
             switchView('living-dex-view');
         });
         
-        // --- ALLE FUNKTIONEN ---
-        // (Hier der vollständige, funktionierende JS-Code aus dem vorletzten Schritt)
         function initLivingDex() {
             const genFilter = document.getElementById("genFilter");
             const uniqueGens = [...new Set(pokemonList.map(p => p.generation))].sort((a, b) => a - b);
@@ -589,6 +637,9 @@
             if (statusFilter.options.length <= 1) statusFilter.innerHTML += ['caught', 'shiny', 'missing'].map(s => `<option value="${s}">${{ caught: 'Gefangen', shiny: 'Shiny', missing: 'Fehlend' }[s]}</option>`).join('');
             ["genFilter", "statusFilter", "formFilter"].forEach(id => document.getElementById(id).addEventListener("change", applyLivingDexFilters));
             document.getElementById("searchFilter").addEventListener("input", applyLivingDexFilters);
+            document.getElementById('exportCodeBtn').addEventListener('click', () => openCodeModal('export'));
+            document.getElementById('importCodeBtn').addEventListener('click', () => openCodeModal('import'));
+            document.getElementById('modalCloseBtn').addEventListener('click', () => document.getElementById('codeModal').style.display = 'none');
             updateLivingDexProgress();
             applyLivingDexFilters();
         }
@@ -736,17 +787,19 @@
         }
         function initTypeCalculator() {
             const gridContainer = document.getElementById('type-selection-grid-container');
-            const grid = document.createElement('div');
-            grid.className = 'type-selection-grid';
-            gridContainer.appendChild(grid);
-            allTypes.forEach(type => {
-                const typeTag = document.createElement('span');
-                typeTag.className = `type-tag type-${getTypeClassName(type)}`;
-                typeTag.textContent = type;
-                typeTag.dataset.type = type;
-                typeTag.addEventListener('click', () => toggleTypeSelection(type));
-                grid.appendChild(typeTag);
-            });
+            if(gridContainer.children.length === 0){
+                const grid = document.createElement('div');
+                grid.className = 'type-selection-grid';
+                gridContainer.appendChild(grid);
+                allTypes.forEach(type => {
+                    const typeTag = document.createElement('span');
+                    typeTag.className = `type-tag type-${getTypeClassName(type)}`;
+                    typeTag.textContent = type;
+                    typeTag.dataset.type = type;
+                    typeTag.addEventListener('click', () => toggleTypeSelection(type));
+                    grid.appendChild(typeTag);
+                });
+            }
             document.getElementById('clear-types-btn').addEventListener('click', clearTypeSelection);
             const type1Select = document.getElementById('pokedex-type1-filter');
             const type2Select = document.getElementById('pokedex-type2-filter');
@@ -842,7 +895,7 @@
                     selectedTypes = (p.type || "").split(' ').filter(Boolean);
                     updateCalculatorUI();
                     renderStats(p);
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    document.querySelector('#type-calculator-view .tool-container').scrollIntoView({ behavior: 'smooth' });
                 });
                 container.appendChild(card);
             });
@@ -900,7 +953,7 @@
         }
 
         function startQuiz() {
-            document.querySelector('#type-quiz-view .tool-container').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('#type-quiz-view .tool-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
             currentQuizScore = 0;
             document.getElementById('quiz-score').textContent = currentQuizScore;
             document.querySelector('.quiz-controls').style.display = 'none';

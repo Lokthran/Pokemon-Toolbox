@@ -60,10 +60,16 @@
                 display: block;
             }
 
-        select, input {
-            padding: 8px;
+        /* Einheitliche Höhe und Ausrichtung für alle Steuerelemente im .controls-Kasten */
+        select, input[type="text"], .controls button {
+            padding: 8px 15px;
             border-radius: 8px;
             border: 1px solid #ccc;
+            height: 40px;
+            box-sizing: border-box;
+            font-size: 1em;
+            vertical-align: middle;
+            margin: 0;
         }
 
         .progress-section {
@@ -78,10 +84,18 @@
             background: white;
             padding: 15px;
             border-radius: 12px;
-            width: 320px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            flex-grow: 1; 
+            max-width: 48%; 
+            min-width: 280px; 
         }
 
+        .progress-section {
+            flex-direction: row; 
+            justify-content: space-around; 
+            align-items: flex-start; 
+        }
+        
         .progress-bar {
             width: 100%;
             height: 25px;
@@ -110,12 +124,47 @@
 
         .controls {
             display: flex;
+            flex-wrap: wrap; 
+            align-items: center;
+            justify-content: space-between;
             gap: 10px;
-            flex-wrap: wrap;
             margin-bottom: 20px;
             background: white;
             padding: 20px;
             border-radius: 12px;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            flex-grow: 1;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .filter-group select,
+        .filter-group input[type="text"] {
+            flex-grow: 1; 
+            max-width: 200px; 
+            min-width: 120px; 
+        }
+        
+        .filter-group #searchFilter {
+            max-width: 300px; 
+        }
+
+        .button-group button {
+            flex-shrink: 0; 
+            white-space: nowrap; 
         }
 
         .generation-section {
@@ -125,8 +174,7 @@
         }
 
         .generation-header {
-            /* Hintergrundfarbe korrigiert von FDF5AA auf #447D9B */
-            background: #447D9B; 
+            background: #447D9B;
             color: white;
             padding: 15px;
             font-size: 1.2em;
@@ -305,7 +353,7 @@
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.2s;
-            margin-top: 10px;
+            margin-top: 0;
         }
 
             .utility-button:hover {
@@ -314,6 +362,7 @@
 
         .pokedex-filters {
             display: flex;
+            flex-wrap: wrap; /* Erlaubt Umbruch auf mehrere Zeilen */
             gap: 10px;
             align-items: center;
             padding: 15px;
@@ -321,9 +370,12 @@
             border-bottom: 1px solid #dee2e6;
         }
 
-            .pokedex-filters input {
-                width: 250px;
-                flex-grow: 0;
+            .pokedex-filters input,
+            .pokedex-filters select { /* Hier wurden select-Elemente hinzugefügt */
+                flex-grow: 1; /* Ermöglicht diesen Elementen, zu wachsen */
+                min-width: 120px; /* Mindestbreite, damit sie nicht zu klein werden */
+                max-width: 250px; /* Max-Breite beibehalten */
+                box-sizing: border-box; /* Polsterung in die Breite einbeziehen */
             }
 
         .type-selection-grid {
@@ -409,17 +461,46 @@
             font-weight: bold;
             text-align: center;
             box-sizing: border-box;
+        }
 
-            @media (max-width: 768px) {
+        /* Responsive Styles */
+        @media (max-width: 768px) {
             .controls {
                 flex-direction: column;
                 align-items: stretch;
+                justify-content: flex-start;
             }
 
             .controls select,
             .controls input {
                 width: 100%;
-                margin-bottom: 10px; /* Fügt etwas Abstand zwischen den Elementen hinzu */
+                margin-bottom: 10px;
+                max-width: unset;
+                flex-grow: 1;
+            }
+            
+            .controls button {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
+            .filter-group, .button-group {
+                flex-direction: column;
+                align-items: stretch;
+                width: 100%;
+                margin-left: 0;
+            }
+            
+            .filter-group select,
+            .filter-group input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .button-group button {
+                width: 100%;
+                margin-top: 10px;
             }
 
             .pokedex-filters {
@@ -427,18 +508,21 @@
                 align-items: stretch;
             }
 
-            .pokedex-filters select,
-            .pokedex-filters input {
-                width: 100%;
+            /* Hier die Korrektur für die Typ-Filter im Typen-Rechner-Pokédex */
+            .pokedex-filters input,
+            .pokedex-filters select {
+                width: 100%; /* Volle Breite, damit sie nicht über den Rand ragen */
                 margin-bottom: 10px;
+                flex-shrink: 0; /* Verhindert, dass sie schrumpfen und überlappen */
+                max-width: unset; /* Setzt die max-width vom Desktop-Modus zurück */
             }
 
             .type-selection-grid {
-                justify-content: center; /* Zentriert die Typen-Tags auf kleineren Bildschirmen */
+                justify-content: center;
             }
 
             .pokemon-grid {
-                grid-template-columns: 1fr; /* Eine Spalte auf kleinen Bildschirmen */
+                grid-template-columns: 1fr;
             }
 
             .progress-section {
@@ -447,10 +531,14 @@
             }
 
             .progress-card {
-                width: 100%; /* Volle Breite für Fortschrittskarten */
-                max-width: 320px; /* Oder eine maximale Breite, falls gewünscht */
+                width: 100%;
+                max-width: 350px;
+                margin-bottom: 15px;
             }
         }
+        /* Styles für das Code-Modal */
+        #codeModal {
+            display: flex; 
         }
     </style>
 </head>
@@ -467,11 +555,27 @@
                 <div class="progress-card"><h3>Shiny gefangen</h3><div class="progress-bar"><div class="progress-fill shiny-progress" id="shinyProgress">0%</div></div><div id="shinyStats">0 / 0</div></div>
             </div>
             <div class="controls">
-                <select id="genFilter"><option value="all">Alle Generationen</option></select>
-                <select id="formFilter"><option value="all">Alle Formen</option></select>
-                <select id="statusFilter"><option value="all">Alle</option></select>
-                <input type="text" id="searchFilter" placeholder="Nach Name suchen..." />
+                <div class="filter-group">
+                    <select id="genFilter"><option value="all">Alle Generationen</option></select>
+                    <select id="formFilter"><option value="all">Alle Formen</option></select>
+                    <select id="statusFilter"><option value="all">Alle</option></select>
+                    <input type="text" id="searchFilter" placeholder="Nach Name suchen..." />
+                </div>
+                <div class="button-group">
+                    <button id="exportCodeBtn" class="utility-button">Pokémon exportieren</button>
+                    <button id="importCodeBtn" class="utility-button">Pokémon importieren</button>
+                </div>
             </div>
+
+            <div id="codeModal" style="display:none; position:fixed; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; justify-content:center; align-items:center;">
+                <div style="background:white; padding:20px; border-radius:12px; width:80%; max-width:500px; text-align:center;">
+                    <h3 id="modalTitle"></h3>
+                    <textarea id="codeTextarea" rows="5" style="width:calc(100% - 20px); margin-bottom:10px;"></textarea>
+                    <button id="modalActionBtn" class="utility-button"></button>
+                    <button id="modalCloseBtn" class="utility-button" style="background-color:#dc3545;">Schließen</button>
+                </div>
+            </div>
+
             <div id="pokemonContainer"></div>
         </div>
         <div id="type-calculator-view" class="view">
@@ -562,8 +666,6 @@
                 const matchesSearch = p.name.toLowerCase().includes(search);
                 
                 // Überprüfe Form: Wenn "all" ausgewählt ist, lasse alle NICHT-Mega-Formen zu. Ansonsten, nur die spezifische Form.
-                // Die Logik hier ist korrekt: Wenn form === "all", ist matchesForm immer true (es sei denn p.form ist Mega, was von isNotMega gehandhabt wird).
-                // Andernfalls muss p.form genau der ausgewählten Form entsprechen.
                 const matchesForm = (form === "all" || p.form === form);
                 
                 // Überprüfe Fangstatus
@@ -651,6 +753,92 @@
             document.getElementById("shinyProgress").style.width = `${shinyPercentage}%`;
             document.getElementById("shinyProgress").textContent = `${shinyPercentage}%`;
         }
+
+        // --- IMPORT/EXPORT FUNCTIONS ---
+        function openCodeModal(mode) {
+            const modal = document.getElementById('codeModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const codeTextarea = document.getElementById('codeTextarea');
+            const modalActionBtn = document.getElementById('modalActionBtn');
+
+            modal.style.display = 'flex'; // Modal anzeigen
+
+            if (mode === 'export') {
+                modalTitle.textContent = 'Dein Living-Dex Code';
+                codeTextarea.value = exportCaughtPokemon();
+                codeTextarea.readOnly = true; // Nur zum Kopieren
+                modalActionBtn.textContent = 'Kopieren';
+                modalActionBtn.onclick = () => {
+                    codeTextarea.select();
+                    document.execCommand('copy');
+                    modalActionBtn.textContent = 'Kopiert!';
+                    setTimeout(() => modalActionBtn.textContent = 'Kopieren', 2000);
+                };
+            } else if (mode === 'import') {
+                modalTitle.textContent = 'Code einfügen';
+                codeTextarea.value = '';
+                codeTextarea.readOnly = false; // Zum Einfügen
+                modalActionBtn.textContent = 'Importieren';
+                modalActionBtn.onclick = () => {
+                    importCaughtPokemon(codeTextarea.value);
+                    modal.style.display = 'none'; // Modal schließen nach Import
+                    // Aktualisiere die Anzeige
+                    updateLivingDexProgress();
+                    applyLivingDexFilters(); 
+                };
+            }
+        }
+
+        function exportCaughtPokemon() {
+            // Wir speichern nur die IDs der gefangenen Pokémon und ihren Status
+            const simpleCaughtData = {};
+            for (const id in caughtPokemon) {
+                // Sicherstellen, dass nur IDs aus pokemonList berücksichtigt werden
+                const pokemonExistsInList = pokemonList.some(p => p.id === parseInt(id));
+                if (pokemonExistsInList && (caughtPokemon[id].normal || caughtPokemon[id].shiny)) {
+                    simpleCaughtData[id] = {
+                        normal: caughtPokemon[id].normal,
+                        shiny: caughtPokemon[id].shiny
+                    };
+                }
+            }
+            // JSON.stringify konvertiert das Objekt in einen String
+            return JSON.stringify(simpleCaughtData);
+        }
+
+        function importCaughtPokemon(code) {
+            try {
+                const importedData = JSON.parse(code);
+                if (typeof importedData !== 'object' || importedData === null) {
+                    alert('Ungültiger Code: Das importierte Objekt ist kein gültiges JSON-Objekt.');
+                    return;
+                }
+
+                // Bestätigungsabfrage vor dem Import
+                if (!confirm('Möchtest du deinen aktuellen Fortschritt mit dem importierten Code überschreiben?')) {
+                    return; // Import abbrechen
+                }
+
+                // Den aktuellen Fortschritt komplett löschen und durch importierte Daten ersetzen
+                caughtPokemon = {}; 
+                for (const id in importedData) {
+                    const pokemonId = parseInt(id);
+                    // Zusätzliche Prüfung, ob die ID in unserer pokemonList existiert, um ungültige Daten zu vermeiden
+                    if (!isNaN(pokemonId) && pokemonList.some(p => p.id === pokemonId)) { 
+                        caughtPokemon[pokemonId] = {
+                            normal: !!importedData[id].normal, // !! konvertiert zu echtem Boolean
+                            shiny: !!importedData[id].shiny
+                        };
+                    }
+                }
+                localStorage.setItem('caughtPokemon', JSON.stringify(caughtPokemon));
+                alert('Fortschritt erfolgreich importiert!');
+            } catch (e) {
+                alert('Fehler beim Importieren des Codes. Bitte stelle sicher, dass es ein gültiger Code ist.');
+                console.error('Import-Fehler:', e);
+            }
+        }
+
         // --- TYPE CALCULATOR FUNCTIONS ---
         function initTypeCalculator() {
             const gridContainer = document.getElementById('type-selection-grid-container');
@@ -783,7 +971,7 @@
             document.getElementById('stats-container').style.display = 'none';
         }
         function renderStats(pokemon) {
-            const stats = pokemonStats.find(s => s.id === pokemon.id); // Korrektur: Nutze .find() und pokemon.id
+            const stats = pokemonStats.find(s => s.id === pokemon.id);
             const statsContainer = document.getElementById('stats-container');
             const statsDisplay = document.getElementById('stats-display');
             if (!stats) { clearStatsDisplay(); return; }
@@ -799,6 +987,10 @@
                 <span class="stat-label">Gesamt:</span> <span style="font-weight:bold;">${stats.total}</span>
             </div>`;
         }
+        // Event Listener für Import/Export Buttons
+        document.getElementById('exportCodeBtn').addEventListener('click', () => openCodeModal('export'));
+        document.getElementById('importCodeBtn').addEventListener('click', () => openCodeModal('import'));
+        document.getElementById('modalCloseBtn').addEventListener('click', () => document.getElementById('codeModal').style.display = 'none');
     </script>
 </body>
 </html>

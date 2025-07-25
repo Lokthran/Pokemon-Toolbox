@@ -441,6 +441,13 @@
                 width: 100%;
             }
         }
+
+        /* --- Richtige Antworten im Quiz hervorheben --- */
+#quiz-answer-grid .type-tag.highlight-correct {
+    border: 3px solid #28a745;
+    box-shadow: 0 0 8px #28a745;
+    transform: scale(1.05);
+}
     </style>
 </head>
 <body>
@@ -1036,7 +1043,7 @@
             }
         }
 
-        function checkQuizAnswer() {
+      function checkQuizAnswer() {
             const correctAnswers = currentQuizQuestion.correctAnswers;
             const feedbackEl = document.getElementById('quiz-feedback');
             const difficulty = document.getElementById('quiz-difficulty-select').value;
@@ -1055,13 +1062,18 @@
                     updateHighScoreDisplay();
                 }
             } else {
-                feedbackEl.textContent = 'Leider falsch!';
+                // HIER IST DIE ÄNDERUNG: Score wird zurückgesetzt
+                currentQuizScore = 0;
+                document.getElementById('quiz-score').textContent = currentQuizScore;
+                feedbackEl.textContent = 'Leider falsch! Score zurückgesetzt.';
                 feedbackEl.className = 'incorrect';
             }
 
             document.querySelectorAll('#quiz-answer-grid .type-tag').forEach(tag => {
                 const type = tag.dataset.type;
-                if (!correctAnswers.has(type)) {
+                if (correctAnswers.has(type)) {
+                    tag.classList.add('highlight-correct');
+                } else {
                     tag.classList.add('faded');
                 }
             });

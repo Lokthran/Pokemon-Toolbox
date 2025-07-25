@@ -66,7 +66,7 @@ Um an der Toolbox zu arbeiten oder sie offline zu nutzen:
 
     Klone dieses Repository: git clone https://github.com/Lokthran/Pokemon-Toolbox.git
 
-    Öffne die index.html Datei in deinem Webbrowser.
+   Öffne die index.html Datei in deinem Webbrowser.
 
 🤝 Mitwirken
 

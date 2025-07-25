@@ -4,57 +4,42 @@ Willkommen bei der Pokémon Toolbox – deinem unverzichtbaren Begleiter für al
 
 ✨ Funktionen
 
-🗃️ Living-Dex-Tracker
+## ✨ Funktionen
+
+### 🗃️ Living-Dex-Tracker
 
 Behalte den Überblick über deine gesammelten Pokémon!
 
-    Umfassende Pokémon-Liste: Verwalte alle Pokémon, inklusive spezieller Regionalformen wie Alola, Galar, Hisui und Paldea, die als eigenständige Einträge gezählt werden.
+* **Umfassende Pokémon-Liste:** Verwalte alle Pokémon, inklusive spezieller Regionalformen wie Alola, Galar, Hisui und Paldea, die als eigenständige Einträge gezählt werden.
+* **Fortschrittsanzeige:** Verfolge deinen Fang-Fortschritt für normale und Shiny-Pokémon mit detaillierten Zahlen und Fortschrittsbalken.
+* **Filteroptionen:** Filtere deine Pokémon nach:
+    * Generation
+    * Form (Alola, Galar, Hisui, Paldea)
+    * Fangstatus (Gefangen, Shiny, Fehlend)
+    * Name (Suchfunktion)
+* **Fortschritt sichern & teilen:**
+    * **Export:** Generiere einen Code deines aktuellen Living-Dex-Fortschritts.
+    * **Import:** Füge einen Code ein, um deinen Fortschritt auf einem anderen Gerät wiederherzustellen oder zu teilen.
 
-    Fortschrittsanzeige: Verfolge deinen Fang-Fortschritt für normale und Shiny-Pokémon mit detaillierten Zahlen und Fortschrittsbalken.
-
-    Filteroptionen: Filtere deine Pokémon nach:
-
-        Generation
-
-        Form (Alola, Galar, Hisui, Paldea)
-
-        Fangstatus (Gefangen, Shiny, Fehlend)
-
-        Name (Suchfunktion)
-
-    Fortschritt sichern & teilen:
-
-        Export: Generiere einen Code deines aktuellen Living-Dex-Fortschritts.
-
-        Import: Füge einen Code ein, um deinen Fortschritt auf einem anderen Gerät wiederherzustellen oder zu teilen.
-
-📊 Typen-Rechner
+### 📊 Typen-Rechner
 
 Meistere die Typen-Effektivitäten und plane deine Kämpfe strategisch!
 
-    Defensiv-Analyse: Wähle bis zu zwei Pokémon-Typen aus, um zu sehen, welche angreifenden Typen sehr effektiv, nicht sehr effektiv oder immun sind.
+* **Defensiv-Analyse:** Wähle bis zu zwei Pokémon-Typen aus, um zu sehen, welche angreifenden Typen sehr effektiv, nicht sehr effektiv oder immun sind.
+* **Offensiv-Analyse:** Sieh auf einen Blick, gegen welche Typen deine ausgewählten Typen besonders effektiv sind.
+* **Integrierter Pokédex:** Wähle Pokémon direkt aus einem durchsuchbaren Pokédex aus, um ihre Typen für die Analyse zu übernehmen und ihre Basis-Stats anzuzeigen.
+* **Basis-Statistik-Anzeige:** Erhalte detaillierte Informationen zu den Basis-Stats (KP, Angriff, Verteidigung, Sp. Angriff, Sp. Verteidigung, Initiative) jedes Pokémon im Rechner.
 
-    Offensiv-Analyse: Sieh auf einen Blick, gegen welche Typen deine ausgewählten Typen besonders effektiv sind.
-
-    Integrierter Pokédex: Wähle Pokémon direkt aus einem durchsuchbaren Pokédex aus, um ihre Typen für die Analyse zu übernehmen und ihre Basis-Stats anzuzeigen.
-
-    Basis-Statistik-Anzeige: Erhalte detaillierte Informationen zu den Basis-Stats (KP, Angriff, Verteidigung, Sp. Angriff, Sp. Verteidigung, Initiative) jedes Pokémon im Rechner.
-
-❓ Typen-Quiz
+### ❓ Typen-Quiz
 
 Teste und erweitere dein Wissen über Typen-Effektivitäten in einem interaktiven Quiz!
 
-    Drei Schwierigkeitsstufen:
-
-        Level 1: Errate die Schwächen eines einzelnen, zufälligen Typs.
-
-        Level 2: Finde die Schwächen eines zufälligen Pokémon, dessen Typen angezeigt werden.
-
-        Level 3: Die ultimative Herausforderung! Finde die Schwächen eines zufälligen Pokémon, ohne dessen Typen zu sehen.
-
-    Score & Highscore: Verfolge deinen aktuellen Punktestand. Deine Highscores für jede Schwierigkeitsstufe werden lokal in deinem Browser gespeichert.
-
-    Interaktives Feedback: Erhalte sofort eine Rückmeldung, ob deine Antwort richtig war, und sieh dir die korrekte Lösung an. Bei einer falschen Antwort wird dein Score zurückgesetzt.
+* **Drei Schwierigkeitsstufen:**
+    * **Level 1:** Errate die Schwächen eines einzelnen, zufälligen Typs.
+    * **Level 2:** Finde die Schwächen eines zufälligen Pokémon, dessen Typen angezeigt werden.
+    * **Level 3:** Die ultimative Herausforderung! Finde die Schwächen eines zufälligen Pokémon, *ohne* dessen Typen zu sehen.
+* **Score & Highscore:** Verfolge deinen aktuellen Punktestand. Deine Highscores für jede Schwierigkeitsstufe werden lokal in deinem Browser gespeichert.
+* **Interaktives Feedback:** Erhalte sofort eine Rückmeldung, ob deine Antwort richtig war, und sieh dir die korrekte Lösung an. Bei einer falschen Antwort wird dein Score zurückgesetzt.
 
 🚀 Technologien
 
@@ -76,7 +61,7 @@ Pokemon Toolbox - https://lokthran.github.io/Pokemon-Toolbox/
 🛠️ Entwicklung
 
 Lokale Entwicklung
-
+                
 Um an der Toolbox zu arbeiten oder sie offline zu nutzen:
 
     Klone dieses Repository: git clone https://github.com/Lokthran/Pokemon-Toolbox.git

@@ -43,11 +43,11 @@ Teste und erweitere dein Wissen über Typen-Effektivitäten in einem interaktive
 
 🚀 Technologien
 
-   * **HTML5: Für die semantische Struktur der Anwendung.
+   * HTML5: Für die semantische Struktur der Anwendung.
 
-   * **CSS3: Für das Styling, das responsive Design und die visuellen Details wie Form- und Typ-Farben.
+   * CSS3: Für das Styling, das responsive Design und die visuellen Details wie Form- und Typ-Farben.
 
-   * **JavaScript (Vanilla JS): Für die gesamte interaktive Logik, die Filterung, die Berechnungen und die Verwaltung der Daten im Local Storage.
+   * JavaScript (Vanilla JS): Für die gesamte interaktive Logik, die Filterung, die Berechnungen und die Verwaltung der Daten im Local Storage.
 
 📚 Datenquellen
 

@@ -567,15 +567,18 @@
                 </div>
                 <div class="quiz-controls">
                     <select id="quiz-difficulty-select">
-                        <option value="1">Level 1: Typen erraten</option>
-                        <option value="2">Level 2: Pokémon (mit Typen)</option>
-                        <option value="3">Level 3: Pokémon (ohne Typen)</option>
-                    </select>
+    <option value="1">Offensiv I: Typen-Schwächen</option>
+    <option value="2">Offensiv II: Pokémon-Schwächen</option>
+    <option value="3">Offensiv III: Experten-Modus</option>
+    <option value="4">Defensiv I: Typen-Resistenzen</option>
+    <option value="5">Defensiv II: Pokémon-Resistenzen</option>
+    <option value="6">Defensiv III: Experten-Deckung</option>
+</select>
                     <button id="start-quiz-btn" class="utility-button" style="background-color:#28a745;">Quiz starten</button>
                 </div>
                 <div id="quiz-question-area" style="display: none;"></div>
                 <div id="quiz-answer-area" style="display: none;">
-                    <p>Welche(r) Typ(en) ist/sind <strong>sehr effektiv</strong>?</p>
+                    <p id="quiz-question-text">Welcher Typ ist die richtige Antwort?</p>
                     <div id="quiz-answer-grid"></div>
                     <div id="quiz-feedback"></div>
                     <div class="quiz-action-buttons">
@@ -1164,36 +1167,54 @@
         }
         
         function generateQuizQuestion() {
-            const difficulty = document.getElementById('quiz-difficulty-select').value;
-            const questionArea = document.getElementById('quiz-question-area');
-            let defendingTypes = [];
+    const difficulty = document.getElementById('quiz-difficulty-select').value;
+    const questionArea = document.getElementById('quiz-question-area');
+    const questionText = document.getElementById('quiz-question-text');
+    let defendingTypes = [];
 
-            if (difficulty === "1") {
-                defendingTypes = [allTypes[Math.floor(Math.random() * allTypes.length)]];
-                questionArea.innerHTML = `<div class="pokemon-types" style="justify-content: center; margin-top: 10px; transform: scale(1.2);">${defendingTypes.map(t => `<span class="type-tag type-${getTypeClassName(t)}">${t}</span>`).join(' ')}</div>`;
+    const isDefensiveQuiz = parseInt(difficulty) > 3;
 
-            } else {
-                const randomPokemon = pokemonList[Math.floor(Math.random() * pokemonList.length)];
-                defendingTypes = (randomPokemon.type || "").split(' ').filter(Boolean);
-                const formClass = sanitizeFormForClassName(randomPokemon.form);
-                let formTag = randomPokemon.form !== 'Normal' ? `<span class="form-tag form-${formClass}">${randomPokemon.form}</span>` : '';
-                let typeTags = (randomPokemon.type || "").split(' ').filter(Boolean).map(t => `<span class="type-tag type-${getTypeClassName(t)}">${t}</span>`).join('');
-                const card = document.createElement('div');
-                card.className = 'pokemon-card';
-                card.innerHTML = `
-                    <div class="pokemon-header" style="margin-top: 10px;">
-                        <span class="pokemon-name">${randomPokemon.name}</span>${formTag}
-                        <span>#${String(randomPokemon.base_id).padStart(4, '0')}</span>
-                    </div>
-                    <div class="pokemon-types">${difficulty === "2" ? typeTags : ''}</div>`;
-                questionArea.innerHTML = '';
-                questionArea.appendChild(card);
-            }
-            currentQuizQuestion = {
-                defendingTypes: defendingTypes,
-                correctAnswers: getEffectiveAgainst(defendingTypes)
-            };
-        }
+    // Frage anpassen je nach Modus
+    if (isDefensiveQuiz) {
+        questionText.innerHTML = "Welche(r) Typ(en) ist/sind <strong>nicht sehr effektiv</strong> oder <strong>immun</strong>?";
+    } else {
+        questionText.innerHTML = "Welche(r) Typ(en) ist/sind <strong>sehr effektiv</strong>?";
+    }
+
+    // Level 1 & 4: Nur Typen
+    if (difficulty === "1" || difficulty === "4") {
+        defendingTypes = [allTypes[Math.floor(Math.random() * allTypes.length)]];
+        questionArea.innerHTML = `<div class="pokemon-types" style="justify-content: center; margin-top: 10px; transform: scale(1.2);">${defendingTypes.map(t => `<span class="type-tag type-${getTypeClassName(t)}">${t}</span>`).join(' ')}</div>`;
+    } 
+    // Level 2, 3, 5, 6: Pokémon
+    else {
+        const randomPokemon = pokemonList[Math.floor(Math.random() * pokemonList.length)];
+        defendingTypes = (randomPokemon.type || "").split(' ').filter(Boolean);
+        const formClass = sanitizeFormForClassName(randomPokemon.form);
+        let formTag = randomPokemon.form !== 'Normal' ? `<span class="form-tag form-${formClass}">${randomPokemon.form}</span>` : '';
+
+        // Typen nur in Level 2 & 5 anzeigen
+        const showTypes = (difficulty === "2" || difficulty === "5");
+        let typeTags = (randomPokemon.type || "").split(' ').filter(Boolean).map(t => `<span class="type-tag type-${getTypeClassName(t)}">${t}</span>`).join('');
+
+        const card = document.createElement('div');
+        card.className = 'pokemon-card';
+        card.innerHTML = `
+            <div class="pokemon-header" style="margin-top: 10px;">
+                <span class="pokemon-name">${randomPokemon.name}</span>${formTag}
+                <span>#${String(randomPokemon.base_id).padStart(4, '0')}</span>
+            </div>
+            <div class="pokemon-types">${showTypes ? typeTags : ''}</div>`;
+        questionArea.innerHTML = '';
+        questionArea.appendChild(card);
+    }
+
+    // Die richtige Lösungsfunktion basierend auf dem Modus aufrufen
+    currentQuizQuestion = {
+        defendingTypes: defendingTypes,
+        correctAnswers: isDefensiveQuiz ? getResistedBy(defendingTypes) : getEffectiveAgainst(defendingTypes)
+    };
+}
 
         function getEffectiveAgainst(defendingTypes) {
             const effectiveTypes = new Set();
@@ -1207,6 +1228,20 @@
                 }
             });
             return effectiveTypes;
+        }
+
+        function getResistedBy(defendingTypes) {
+            const resistedTypes = new Set();
+            allTypes.forEach(attackingType => {
+                let multiplier = 1;
+                defendingTypes.forEach(defendingType => {
+                    multiplier *= typeMatchups[defendingType]?.[attackingType] ?? 1;
+                });
+                if (multiplier < 1) { // Der einzige Unterschied: < 1 statt >= 2
+                    resistedTypes.add(attackingType);
+                }
+            });
+            return resistedTypes;
         }
 
         function toggleQuizTypeSelection(type) {

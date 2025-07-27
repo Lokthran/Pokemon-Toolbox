@@ -59,9 +59,7 @@ Du kannst die Pokémon Toolbox direkt in deinem Browser nutzen!
 Pokemon Toolbox - https://lokthran.github.io/Pokemon-Toolbox/
 
 🛠️ Entwicklung
-
-Lokale Entwicklung
-                
+               
 Um an der Toolbox zu arbeiten oder sie offline zu nutzen:
 
    Klone dieses Repository:

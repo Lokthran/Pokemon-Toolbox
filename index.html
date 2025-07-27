@@ -273,7 +273,12 @@
 
         .pokemon-header { display: flex; justify-content: space-between; }
         .pokemon-name { font-weight: bold; color: #4CAF50; }
-        .pokemon-name-wrapper { display: flex; align-items: center; }
+        .pokemon-name-wrapper {
+    display: flex;
+    align-items: flex-start; /* Ändert die vertikale Ausrichtung von 'center' auf 'flex-start' */
+    flex-wrap: wrap; /* Erlaubt dem Tag, bei Bedarf unter den Namen zu rutschen */
+    gap: 0 5px; /* Fügt einen kleinen horizontalen Abstand hinzu */
+}
         .checkbox-group { display: flex; align-items: center; gap: 5px; }
         .checkbox-container { margin-top: auto; }
 
@@ -295,72 +300,17 @@
             margin-left: 8px;
         }
         
-        .form-tag.form-abendmahne { background-color: #C70039; }
-        .form-tag.form-alola { background-color: #3498DB; }
-        .form-tag.form-alle-formen { background-color: #6c757d; }
-        .form-tag.form-angriffsform { background-color: #F39C12; }
-        .form-tag.form-blutmond { background-color: #E74C3C; }
-        .form-tag.form-brunnenmaske { background-color: #2980B9; }
-        .form-tag.form-buyo-stil { background-color: #8E44AD; }
-        .form-tag.form-cheerleading-stil { background-color: #F1C40F; }
-        .form-tag.form-ewigblutler { background-color: #E91E63; }
-        .form-tag.form-flamenco-stil { background-color: #E67E22; }
-        .form-tag.form-flammenvariante { background-color: #D35400; }
-        .form-tag.form-flie-ender-stil { background-color: #3498DB; }
-        .form-tag.form-flutenvariante { background-color: #1ABC9C; }
-        .form-tag.form-fokussierter-stil { background-color: #2C3E50; }
-        .form-tag.form-formen-au-er-ewigblutler { background-color: #7F8C8D; }
-        .form-tag.form-frost-form { background-color: #3498DB; }
-        .form-tag.form-fundamentmaske { background-color: #A93226; }
-        .form-tag.form-galar { background-color: #E74C3C; }
-        .form-tag.form-gefechtvariante { background-color: #C0392B; }
-        .form-tag.form-gesangsform { background-color: #9B59B6; }
-        .form-tag.form-heldenhafter-krieger { background-color: #F1C40F; }
-        .form-tag.form-hisui { background-color: #9B59B6; }
-        .form-tag.form-hitze-form { background-color: #E67E22; }
-        .form-tag.form-hoch-form { background-color: #F39C12; }
-        .form-tag.form-hula-stil { background-color: #E91E63; }
-        .form-tag.form-inkarnationsform { background-color: #27AE60; }
-        .form-tag.form-initiativeform { background-color: #2ECC71; }
-        .form-tag.form-klingenform { background-color: #BDC3C7; }
-        .form-tag.form-konig-des-schildes { background-color: #34495E; }
-        .form-tag.form-konig-des-schwertes { background-color: #3498DB; }
-        .form-tag.form-landform { background-color: #27AE60; }
-        .form-tag.form-lumpenumhang { background-color: #7F8C8D; }
-        .form-tag.form-mega { background-color: #f39c12; }
-        .form-tag.form-meteorform { background-color: #95A5A6; }
-        .form-tag.form-morgenschwingen { background-color: #8E44AD; }
-        .form-tag.form-nachtform { background-color: #2C3E50; }
-        .form-tag.form-ofenmaske { background-color: #E67E22; }
-        .form-tag.form-optimum { background-color: #16A085; }
-        .form-tag.form-pflanzenumhang { background-color: #2ECC71; }
-        .form-tag.form-proto { background-color: #D35400; }
-        .form-tag.form-rappenreiter { background-color: #735797; }
-        .form-tag.form-regenform { background-color: #3498DB; }
-        .form-tag.form-sandumhang { background-color: #D35400; }
-        .form-tag.form-schimmelreiter { background-color: #96D9D6; }
-        .form-tag.form-schneid-form { background-color: #1ABC9C; }
-        .form-tag.form-schneeform { background-color: #ECF0F1; color: #333 !important; }
-        .form-tag.form-schwarmform { background-color: #2980B9; }
-        .form-tag.form-stellarform { background-color: #F1C40F; }
-        .form-tag.form-tagform { background-color: #F39C12; }
-        .form-tag.form-tanzform { background-color: #E74C3C; }
-        .form-tag.form-terakristall-form { background-color: #8E44AD; }
-        .form-tag.form-tief-form { background-color: #2980B9; }
-        .form-tag.form-tiergeistform { background-color: #D35400; }
-        .form-tag.form-trance-modus { background-color: #8E44AD; }
-        .form-tag.form-truhenform { background-color: #795548; }
-        .form-tag.form-turkisgrune-maske { background-color: #1ABC9C; }
-        .form-tag.form-ultra { background-color: #F1C40F; }
-        .form-tag.form-unendynamax { background-color: #E91E63; }
-        .form-tag.form-urform { background-color: #9B59B6; }
-        .form-tag.form-verteidigungsform { background-color: #2980B9; }
-        .form-tag.form-wandelform { background-color: #7F8C8D; }
-        .form-tag.form-wanderform { background-color: #BDC3C7; }
-        .form-tag.form-wasch-form { background-color: #3498DB; }
-        .form-tag.form-wirbel-form { background-color: #A98FF3; }
-        .form-tag.form-zenitform { background-color: #2ECC71; }
-        .form-tag.form-zwielichtform { background-color: #E67E22; }
+       /* NEU: Fallback-Farbe für alle speziellen Form-Tags */
+.form-tag {
+    background-color: #6c757d; /* Ein neutrales Grau als Standard */
+}
+
+/* Bestehende Regeln überschreiben den Standard für wichtige Formen */
+.form-tag.form-alola { background-color: #3498db; }
+.form-tag.form-galar { background-color: #e74c3c; }
+.form-tag.form-hisui { background-color: #9b59b6; }
+.form-tag.form-mega, .form-tag[class*="mega"] { background-color: #f39c12; }
+.form-tag[class*="paldea"] { background-color: #f39c12; }
 
         .pokemon-types { display: flex; gap: 5px; flex-wrap: wrap; }
 
@@ -843,7 +793,17 @@
             const container = document.getElementById("pokemonContainer");
             container.innerHTML = "";
             const nonCollectibleForms = ['Mega', 'Proto', 'Optimum', 'Unendynamax', 'Schwarmform', 'Terakristall-Form', 'Stellarform'];
-            const collectiblePokemon = list.filter(p => !nonCollectibleForms.some(form => p.form.includes(form)));
+           const collectiblePokemon = list.filter(p => {
+    const isPaldeaForm = p.form.includes("Paldea");
+    const isNonCollectible = nonCollectibleForms.some(form => p.form.includes(form));
+
+    // Behalte das Pokémon, wenn es eine Paldea-Form ist (das ist die Ausnahme).
+    if (isPaldeaForm) {
+        return true;
+    }
+    // Ansonsten filtere es wie bisher, wenn es eine nicht sammelbare Form ist.
+    return !isNonCollectible;
+});
 
             const finalPokemonList = [];
             const seenBaseIds = new Set();
@@ -907,7 +867,17 @@
         
         function updateLivingDexProgress() {
             const nonCollectibleForms = ['Mega', 'Proto', 'Optimum', 'Unendynamax', 'Schwarmform', 'Terakristall-Form', 'Stellarform'];
-            const collectiblePokemon = pokemonList.filter(p => !nonCollectibleForms.some(form => p.form.includes(form)));
+            const collectiblePokemon = pokemonList.filter(p => {
+    const isPaldeaForm = p.form.includes("Paldea");
+    const isNonCollectible = nonCollectibleForms.some(form => p.form.includes(form));
+
+    // Behalte das Pokémon, wenn es eine Paldea-Form ist (das ist die Ausnahme).
+    if (isPaldeaForm) {
+        return true;
+    }
+    // Ansonsten filtere es wie bisher, wenn es eine nicht sammelbare Form ist.
+    return !isNonCollectible;
+});
             
             const displayedPokemonList = [];
             const seenBaseIds = new Set();

@@ -1,4 +1,8 @@
 # Pokémon Toolbox
+Die Box kann direkt über: https://lokthran.github.io/Pokemon-Toolbox/ aufgerufen werden! Alles läuft lokal!
+
+NEU: CHAMPIONS-Schadensrechern BETA -> Ich habe auf Basis von Showdown einen deutschsprachigen Rechner für Pokemon-Champions integriert. 
+
 
 Clientseitige Pokémon-Toolbox mit mehreren eigenständigen Modulen:
 

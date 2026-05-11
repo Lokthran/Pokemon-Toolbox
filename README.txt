@@ -1,0 +1,1 @@
+Direktstart mit Toolbox: index.html\nChampions-Rechner: champions/index.html\nZentrale Toolbox-Daten: data/*.js\n

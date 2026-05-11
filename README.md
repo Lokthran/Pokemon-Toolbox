@@ -1,78 +1,102 @@
-⚡️ Pokémon Toolbox ⚡️
+# Pokémon Toolbox
 
-Willkommen bei der Pokémon Toolbox – deinem unverzichtbaren Begleiter für alle Pokémon-Trainer! Diese Web-Anwendung wurde mit reinem HTML, CSS und JavaScript erstellt und hilft dir, deinen Living-Dex zu organisieren, Typen-Effektivitäten zu meistern und dein Wissen zu testen.
+Clientseitige Pokémon-Toolbox mit mehreren eigenständigen Modulen:
 
-✨ Funktionen
+- Living-Dex-Tracker
+- Typen-Rechner
+- Typen-Quiz
+- Champions-Schadensrechner (eigener Unterordner `champions/`) [file:268][file:295]
 
-## ✨ Funktionen
+---
 
-### 🗃️ Living-Dex-Tracker
+## Projektstruktur
 
-Behalte den Überblick über deine gesammelten Pokémon!
+- `/index.html`  
+  Zentrale Toolbox mit Tabs für Living-Dex, Typen-Rechner, Typen-Quiz und einem Link in den Champions-Rechner. [file:268]
+- `/data/*.js` bzw. `pokemon-*.js`  
+  Datenquellen für Pokédex, Typen, Stats und Formen. [file:250][file:253]
+- `/champions/index.html` + zugehörige Assets  
+  Vollständiger Schadensrechner („Pokémon Champions Schadensrechner“). [file:295]
 
-* **Umfassende Pokémon-Liste:** Verwalte alle Pokémon, inklusive spezieller Regionalformen wie Alola, Galar, Hisui und Paldea, die als eigenständige Einträge gezählt werden.
-* **Fortschrittsanzeige:** Verfolge deinen Fang-Fortschritt für normale und Shiny-Pokémon mit detaillierten Zahlen und Fortschrittsbalken.
-* **Filteroptionen:** Filtere deine Pokémon nach:
-    * Generation
-    * Form (Alola, Galar, Hisui, Paldea)
-    * Fangstatus (Gefangen, Shiny, Fehlend)
-    * Name (Suchfunktion)
-* **Fortschritt sichern & teilen:**
-    * **Export:** Generiere einen Code deines aktuellen Living-Dex-Fortschritts.
-    * **Import:** Füge einen Code ein, um deinen Fortschritt auf einem anderen Gerät wiederherzustellen oder zu teilen.
+---
 
-### 📊 Typen-Rechner
+## Module in der Toolbox (`index.html`)
 
-Meistere die Typen-Effektivitäten und plane deine Kämpfe strategisch!
+### Living-Dex
 
-* **Defensiv-Analyse:** Wähle bis zu zwei Pokémon-Typen aus, um zu sehen, welche angreifenden Typen sehr effektiv, nicht sehr effektiv oder immun sind.
-* **Offensiv-Analyse:** Sieh auf einen Blick, gegen welche Typen deine ausgewählten Typen besonders effektiv sind.
-* **Integrierter Pokédex:** Wähle Pokémon direkt aus einem durchsuchbaren Pokédex aus, um ihre Typen für die Analyse zu übernehmen und ihre Basis-Stats anzuzeigen.
-* **Basis-Statistik-Anzeige:** Erhalte detaillierte Informationen zu den Basis-Stats (KP, Angriff, Verteidigung, Sp. Angriff, Sp. Verteidigung, Initiative) jedes Pokémon im Rechner.
+- Darstellung aller sammelbaren Pokémon (inkl. Form-Logik wie Alola/Galar/Hisui/Paldea). [file:268]
+- Markierung pro Pokémon: **Normal** und **Shiny** (Checkboxen). [file:268]
+- Filter: Generation, Form, Status (gefangen/shiny/fehlend) und Name. [file:268]
+- Fortschrittsanzeige mit Prozentbalken für Normal- und Shiny-Living-Dex. [file:268]
+- Export/Import der eigenen Markierungen als Code (Local Storage). [file:268]
 
-### ❓ Typen-Quiz
+### Typen-Rechner
 
-Teste und erweitere dein Wissen über Typen-Effektivitäten in einem interaktiven Quiz!
+- Auswahl von bis zu zwei Typen für defensive und offensive Analyse. [file:264]
+- Ausgabe nach Effektivitätsstufen (z. B. ×4, ×2, ×0,5, Immunität) in Gruppen. [file:264]
+- „Klickbarer Pokédex“: Pokémon wählen, um deren Typen und Basiswerte zu sehen und direkt in die Analyse zu übernehmen. [file:264]
+- Stat-Anzeige mit Balken (KP, Angriff, Verteidigung, Spezialwerte, Initiative, Gesamt). [file:264]
 
-* **Drei Schwierigkeitsstufen:**
-    * **Level 1:** Errate die Schwächen eines einzelnen, zufälligen Typs.
-    * **Level 2:** Finde die Schwächen eines zufälligen Pokémon, dessen Typen angezeigt werden.
-    * **Level 3:** Die ultimative Herausforderung! Finde die Schwächen eines zufälligen Pokémon, *ohne* dessen Typen zu sehen.
-* **Score & Highscore:** Verfolge deinen aktuellen Punktestand. Deine Highscores für jede Schwierigkeitsstufe werden lokal in deinem Browser gespeichert.
-* **Interaktives Feedback:** Erhalte sofort eine Rückmeldung, ob deine Antwort richtig war, und sieh dir die korrekte Lösung an. Bei einer falschen Antwort wird dein Score zurückgesetzt.
+### Typen-Quiz
 
-🚀 Technologien
+- Mehrere Schwierigkeitsstufen (Offensiv/Defensiv I–III). [file:268]
+- Fragetypen: reine Typenfragen sowie Pokémon-spezifische Schwächen/Resistenzen. [file:268]
+- Auswahl von Antwort-Typen über Typ-Badges mit Hervorhebung der richtigen Antworten. [file:268]
+- Score-/Highscore-System pro Schwierigkeitsgrad (Local Storage). [file:268]
+- Buttons für „Antworten“, „Nächste Frage“ und „Quiz abbrechen“. [file:268]
 
-   * HTML5: Für die semantische Struktur der Anwendung.
+---
 
-   * CSS3: Für das Styling, das responsive Design und die visuellen Details wie Form- und Typ-Farben.
+## Champions-Schadensrechner (`champions/index.html`)
 
-   * JavaScript (Vanilla JS): Für die gesamte interaktive Logik, die Filterung, die Berechnungen und die Verwaltung der Daten im Local Storage.
+Der Champions-Schadensrechner ist ein eigenständiger, vollwertiger Damage-Calculator für Pokémon-Kämpfe. [file:295]
 
-📚 Datenquellen
+### Kernfunktionen
 
-Alle Pokémon-Daten (Namen, Typen, Formen, Basis-Stats) und Typen-Matchups werden aus lokalen JavaScript-Dateien (pokedex.js, stats.js, types.js) bezogen. Es findet keine Kommunikation mit externen APIs statt, was die Anwendung schnell, offline-fähig und datenschutzfreundlich macht.
+- **Angreifer / Verteidiger**
+  - Auswahl von Pokémon inkl. Formen, Typen und Basiswerten. [file:295]
+  - Level, EVs, IVs, Wesen, Status, Boosts (Stufen) und Tera-/Mega-/Form-Spezifika. [file:295]
 
-🌐 Online verfügbar
+- **Moves**
+  - Auswahl von Attacken mit Kategorie (physisch/spezial), Basisstärke, Typ und Mehrfachtreffern. [file:295]
+  - Unterstützung von Spezialfällen wie Flail/Verzweifler, Natur-Kraft, Wetterball, Gyroball etc. [file:295]
 
-Du kannst die Pokémon Toolbox direkt in deinem Browser nutzen!
-Pokemon Toolbox - https://lokthran.github.io/Pokemon-Toolbox/
+- **Feld & Bedingungen**
+  - Wetter (Sonne, Regen, Sand, Hail/Snow, spezielle G-Max-Effekte). [file:295]
+  - Terrains (Electric, Grassy, Misty, Psychic) inkl. Grounded-Logik. [file:295]
+  - Screens, Aurora Veil, Reflect/Light Screen, Friend Guard, Wonder Room usw. [file:295]
+  - Side-Conditions wie Seed-Effekte, Trapping, Leech Seed, Sea of Fire, Vine Lash, Wildfire, Cannonade, Volcalith. [file:295]
 
-🛠️ Entwicklung
-               
-Um an der Toolbox zu arbeiten oder sie offline zu nutzen:
+- **Items & Fähigkeiten**
+  - Umfassende Unterstützung von Items (z. B. Life Orb, Choice, Berries, Gems, Leftovers, Black Sludge, Sticky Barb etc.). [file:295]
+  - Fähigkeiten wie Intimidate, Flash Fire, Thick Fat, Guts, Huge Power, Filter/Solid Rock, Levitate, Sap Sipper, Wonder Guard, Poison Heal, Magic Guard u. v. m. [file:295]
 
-   Klone dieses Repository:
-    git clone https://github.com/Lokthran/Pokemon-Toolbox.git
+- **Schadensberechnung**
+  - Damage-Range (Min/Max) in Rohwerten und Prozent. [file:295]
+  - STAB, Effektivität, Resistenz und Immunität je Typ-Kombination. [file:295]
+  - Multi-Hit-Berechnungen (z. B. Triple Kick, Parental Bond). [file:295]
+  - Berücksichtigung von Krits, Burn-Malus, Wetter-/Terrain-Boni etc. [file:295]
 
-   Öffne die index.html Datei in deinem Webbrowser.
+- **Folgeschaden & Heilung**
+  - Residualschaden: Gift/Toxic, Verbrennung, Sandsturm, Hagel/Snow, Leech Seed, Seeds, G-Max-Folgeschaden. [file:295]
+  - Heilung: Leftovers, Black Sludge, Grassy Terrain, Regen/Hail/Snow-Effekte, Poison Heal, Wish-artige Effekte. [file:295]
 
-🤝 Mitwirken
+- **Ausgabe / Analyse**
+  - Textbeschreibungen des Kampfkontexts (Wetter, Terrain, Crit, Screens, Items, Fähigkeiten). [file:295]
+  - KO-Chance-Berechnung (z. B. 2HKO, 3HKO) anhand der Schadensverteilung und Rest-KP. [file:295]
+  - Multi-Hit-Schadensverteilungen. [file:295]
 
-Beiträge sind willkommen! Wenn du einen Fehler findest oder eine Idee für eine neue Funktion hast, erstelle bitte ein "Issue" auf GitHub. Pull Requests sind ebenfalls sehr willkommen.
+---
 
-Lizenz
+## Speicherung & Datenschutz
 
-Dieses Projekt ist unter der Creative Commons Namensnennung-Nicht kommerziell 4.0 International (CC BY-NC 4.0) Lizenz lizenziert. Das bedeutet, du darfst das Projekt nutzen und teilen, solange es nicht für kommerzielle Zwecke verwendet wird und du den ursprünglichen Urheber (Lokthran) nennst.
+- Fortschritt im Living-Dex sowie Quiz-Highscores werden im **Local Storage** des Browsers gespeichert und bleiben lokal auf dem Gerät. [file:264]
+- Es existiert eine separate, textbasierte Datenschutzerklärung innerhalb der Toolbox. [file:264]
 
-Viel Spaß beim Organisieren deines Living-Dex und beim Meistern der Typen-Strategien!
+---
+
+## Nutzung
+
+1. Projekt lokal entpacken.
+2. `index.html` im Browser öffnen, um die Toolbox zu starten. [file:268]
+3. Für detaillierte Schadensberechnung optional `champions/index.html` direkt öffnen oder den „Champions-Rechner“-Button in der Toolbox nutzen. [file:268][file:295]
